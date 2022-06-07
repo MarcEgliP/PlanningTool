@@ -1,0 +1,7 @@
+USE TICKETING_TOOL;
+
+CREATE TABLE STATUS (
+	ID_STATUS int NOT NULL auto_increment,
+    TITEL varchar(255) NOT NULL,
+    PRIMARY KEY (ID_STATUS)
+);
