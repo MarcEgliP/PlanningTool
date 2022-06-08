@@ -1,5 +1,6 @@
 package com.planningtool.egli.models.database;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -16,10 +17,8 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.planningtool.egli.models.embedded.EmbeddedMutable;
-import com.planningtool.egli.models.embedded.EmbeddedSortable;
 import com.planningtool.egli.models.embedded.EmbeddedUniquable;
 import com.planningtool.egli.models.embedded.Mutable;
-import com.planningtool.egli.models.embedded.Sortable;
 import com.planningtool.egli.models.embedded.Uniquable;
 
 import lombok.Getter;
@@ -30,7 +29,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "PERSON")
-public class Person implements Mutable, Sortable, Uniquable{
+public class Person implements Serializable, Mutable, Uniquable{
 
     private static final long serialVersionUID = 103L;
 
@@ -55,14 +54,15 @@ public class Person implements Mutable, Sortable, Uniquable{
     private EmbeddedMutable embeddedMutable = new EmbeddedMutable();
 
     @Embedded
-    private EmbeddedSortable embeddedSortable = new EmbeddedSortable();
-
-    @Embedded
     private EmbeddedUniquable embeddedUniquable = new EmbeddedUniquable();
 
     @OneToMany(mappedBy="person", fetch = FetchType.LAZY)
     @JsonBackReference
     private Set<Kunde> personKunden;
+
+    @OneToMany(mappedBy="person", fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Set<Mitarbeiter> personMitarbeiter;
 
     @OneToMany(mappedBy="person", fetch = FetchType.LAZY)
     @JsonBackReference
@@ -76,17 +76,6 @@ public class Person implements Mutable, Sortable, Uniquable{
     @Override
     public void setIdUnique(Long idUnique) {
         embeddedUniquable.setIdUnique(idUnique);
-        
-    }
-
-    @Override
-    public Integer getSortierung() {
-        return embeddedSortable.getSortierung();
-    }
-
-    @Override
-    public void setSortierung(Integer sortierung) {
-        embeddedSortable.setSortierung(sortierung);
     }
 
     @Override

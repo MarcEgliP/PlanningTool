@@ -20,10 +20,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.planningtool.egli.models.embedded.EmbeddedMutable;
-import com.planningtool.egli.models.embedded.EmbeddedSortable;
 import com.planningtool.egli.models.embedded.EmbeddedUniquable;
 import com.planningtool.egli.models.embedded.Mutable;
-import com.planningtool.egli.models.embedded.Sortable;
 import com.planningtool.egli.models.embedded.Uniquable;
 
 import lombok.Getter;
@@ -34,8 +32,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "KUNDE")
-public class Kunde implements Mutable, Sortable, Uniquable {
+public class Kunde implements Serializable, Mutable, Uniquable {
 
+    @Getter
     private static final long serialVersionUID = 104L;
 
     @Id
@@ -59,9 +58,6 @@ public class Kunde implements Mutable, Sortable, Uniquable {
     private EmbeddedMutable embeddedMutable = new EmbeddedMutable();
 
     @Embedded
-    private EmbeddedSortable embeddedSortable = new EmbeddedSortable();
-
-    @Embedded
     private EmbeddedUniquable embeddedUniquable = new EmbeddedUniquable();
 
     @OneToMany(mappedBy="person", fetch = FetchType.LAZY)
@@ -81,16 +77,6 @@ public class Kunde implements Mutable, Sortable, Uniquable {
     public void setIdUnique(Long idUnique) {
         embeddedUniquable.setIdUnique(idUnique);
         
-    }
-
-    @Override
-    public Integer getSortierung() {
-        return embeddedSortable.getSortierung();
-    }
-
-    @Override
-    public void setSortierung(Integer sortierung) {
-        embeddedSortable.setSortierung(sortierung);
     }
 
     @Override
