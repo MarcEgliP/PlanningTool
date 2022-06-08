@@ -34,7 +34,6 @@ import lombok.Setter;
 @Table(name = "MITARBEITER")
 public class Mitarbeiter implements Serializable, Mutable, Uniquable {
 
-    @Getter
     private static final long serialVersionUID = 109L;
 
     @Id

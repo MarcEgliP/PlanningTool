@@ -34,7 +34,6 @@ import lombok.Setter;
 @Table(name = "ANSPRECHSPERSON")
 public class Ansprechsperson implements Serializable, Mutable, Uniquable{
 
-    @Getter
     private static final long serialVersionUID = 105L;
 
     @Id

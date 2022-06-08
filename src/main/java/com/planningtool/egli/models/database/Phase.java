@@ -33,8 +33,7 @@ import lombok.Setter;
 @Table(name = "PHASE")
 public class Phase implements Serializable, Mutable, Sortable, Uniquable {
 
-    @Getter
-    private static final long serialVersionUID = 109L;
+    private static final long serialVersionUID = 101L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
