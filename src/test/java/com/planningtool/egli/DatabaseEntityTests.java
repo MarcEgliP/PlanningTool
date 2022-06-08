@@ -15,10 +15,12 @@ import java.util.stream.Collectors;
 
 import org.junit.Test;
 import org.reflections.Reflections;
-import org.reflections.scanners.SubTypesScanner;
+import org.reflections.scanners.Scanners;
 
-public class EgliApplicationTests {
+@SuppressWarnings("rawtypes")
+public class DatabaseEntityTests {
 
+	
 	@Test
 	public void testSerialVersionUID() {
 
@@ -31,12 +33,15 @@ public class EgliApplicationTests {
 		Iterator<Class> itr = allEntitys.iterator();
 		while(itr.hasNext()){
 			
-			Class<? extends Object> next = itr.next();
+			Class next = itr.next();
 			System.out.println(next.getName());
             try {
 				Field privateField = next.getDeclaredField("serialVersionUID");
 				privateField.setAccessible(true);
+
+				@SuppressWarnings("unchecked")
 				Constructor<?> cons = next.getConstructor();
+
 				Object object = cons.newInstance();
 				Long uid = (Long) privateField.get(object);
 				
@@ -66,15 +71,13 @@ public class EgliApplicationTests {
 				e.printStackTrace();
 				assertTrue(false);
 			}
-		}		assertTrue(doppelteUIDS.isEmpty(), doppelteUIDS.toString());
-
-
+		}		
+		assertTrue(doppelteUIDS.isEmpty(), doppelteUIDS.toString());
 		assertTrue(entityWithoutUIDS.isEmpty(),entityWithoutUIDS.toString());
 	}
 
-
 	public Set<Class> findAllClassesUsingReflectionsLibrary(String packageName) {
-		Reflections reflections = new Reflections(packageName, new  SubTypesScanner(false));
+		Reflections reflections = new Reflections(packageName, Scanners.SubTypes.filterResultsBy(s -> true));
 		return reflections.getSubTypesOf(Object.class)
 		  .stream()
 		  .collect(Collectors.toSet());
