@@ -59,13 +59,6 @@ public class Kunde implements Serializable, Mutable, Uniquable {
     @Embedded
     private EmbeddedUniquable embeddedUniquable = new EmbeddedUniquable();
 
-    @OneToMany(mappedBy="person", fetch = FetchType.LAZY)
-    @JsonBackReference
-    private Set<Kunde> personKunden;
-
-    @OneToMany(mappedBy="person", fetch = FetchType.LAZY)
-    @JsonBackReference
-    private Set<Ansprechsperson> personAnsprechspersonen;
 
     @Override
     public Long getIdUnique() {

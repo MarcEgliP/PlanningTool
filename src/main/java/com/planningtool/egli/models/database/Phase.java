@@ -2,19 +2,15 @@ package com.planningtool.egli.models.database;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.planningtool.egli.models.embedded.EmbeddedMutable;
 import com.planningtool.egli.models.embedded.EmbeddedSortable;
@@ -51,14 +47,6 @@ public class Phase implements Serializable, Mutable, Sortable, Uniquable {
 
     @Embedded
     private EmbeddedUniquable embeddedUniquable = new EmbeddedUniquable();
-
-    @OneToMany(mappedBy="person", fetch = FetchType.LAZY)
-    @JsonBackReference
-    private Set<Kunde> personKunden;
-
-    @OneToMany(mappedBy="person", fetch = FetchType.LAZY)
-    @JsonBackReference
-    private Set<Ansprechsperson> personAnsprechspersonen;
 
     @Override
     public Long getIdUnique() {

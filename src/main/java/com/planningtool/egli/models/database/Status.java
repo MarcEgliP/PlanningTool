@@ -2,23 +2,16 @@ package com.planningtool.egli.models.database;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.planningtool.egli.models.embedded.EmbeddedMutable;
 import com.planningtool.egli.models.embedded.EmbeddedUniquable;
 import com.planningtool.egli.models.embedded.Mutable;
@@ -31,28 +24,18 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "ANSPRECHSPERSON")
-public class Ansprechsperson implements Serializable, Mutable, Uniquable{
+@Table(name = "STATUS")
+public class Status implements Serializable, Mutable, Uniquable {
 
-    private static final long serialVersionUID = 105L;
+    private static final long serialVersionUID = 102L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID_ANSPRECHSPERSON")
+    @Column(name = "ID_STATUS")
     private Integer id;
 
-    @Column(name = "VERANTWORTUNG", nullable = false)
-    private String verantwortung;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_PERSON")
-    @JsonManagedReference
-    private Person person;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_KUNDE")
-    @JsonManagedReference
-    private Kunde kunde;
+    @Column(name = "TITEL", nullable = false)
+    private String titel;
 
     @Embedded
     private EmbeddedMutable embeddedMutable = new EmbeddedMutable();
@@ -68,7 +51,6 @@ public class Ansprechsperson implements Serializable, Mutable, Uniquable{
     @Override
     public void setIdUnique(Long idUnique) {
         embeddedUniquable.setIdUnique(idUnique);
-        
     }
 
     @Override

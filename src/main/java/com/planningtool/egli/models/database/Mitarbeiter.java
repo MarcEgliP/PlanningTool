@@ -55,19 +55,15 @@ public class Mitarbeiter implements Serializable, Mutable, Uniquable {
     @Column(name = "AKTIV", nullable = false)
     private boolean aktiv;
 
+    @OneToMany(mappedBy="mitarbeiter", fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Set<Kommentar> mitarbeiterKommentare;
+
     @Embedded
     private EmbeddedMutable embeddedMutable = new EmbeddedMutable();
 
     @Embedded
     private EmbeddedUniquable embeddedUniquable = new EmbeddedUniquable();
-
-    @OneToMany(mappedBy="person", fetch = FetchType.LAZY)
-    @JsonBackReference
-    private Set<Kunde> personKunden;
-
-    @OneToMany(mappedBy="person", fetch = FetchType.LAZY)
-    @JsonBackReference
-    private Set<Ansprechsperson> personAnsprechspersonen;
 
     @Override
     public Long getIdUnique() {

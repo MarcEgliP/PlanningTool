@@ -2,7 +2,6 @@ package com.planningtool.egli.models.database;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -13,10 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.planningtool.egli.models.embedded.EmbeddedMutable;
@@ -31,28 +28,31 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "ANSPRECHSPERSON")
-public class Ansprechsperson implements Serializable, Mutable, Uniquable{
+@Table(name = "KOMMENTAR")
+public class Kommentar implements Serializable, Mutable, Uniquable {
 
-    private static final long serialVersionUID = 105L;
+    private static final long serialVersionUID = 114L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID_ANSPRECHSPERSON")
+    @Column(name = "ID_KOMMENTAR")
     private Integer id;
 
-    @Column(name = "VERANTWORTUNG", nullable = false)
-    private String verantwortung;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_MITARBEITER", nullable = false)
+    @JsonManagedReference
+    private Mitarbeiter mitarbeiter;
+
+    /* 
+    TODO: Create Model "Planung" and add Column
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_PERSON")
+    @JoinColumn(name = "ID_PLANUNG", nullable = false)
     @JsonManagedReference
-    private Person person;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_KUNDE")
-    @JsonManagedReference
-    private Kunde kunde;
+    private Planung planung;
+    */
+    @Column(name = "TITEL", nullable = false)
+    private String titel;
 
     @Embedded
     private EmbeddedMutable embeddedMutable = new EmbeddedMutable();
@@ -68,7 +68,6 @@ public class Ansprechsperson implements Serializable, Mutable, Uniquable{
     @Override
     public void setIdUnique(Long idUnique) {
         embeddedUniquable.setIdUnique(idUnique);
-        
     }
 
     @Override
