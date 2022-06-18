@@ -54,12 +54,6 @@ public class Phase implements Serializable, Mutable, Sortable, Uniquable {
     }
 
     @Override
-    public void setIdUnique(Long idUnique) {
-        embeddedUniquable.setIdUnique(idUnique);
-        
-    }
-
-    @Override
     public Date getMutiertam() {
         return embeddedMutable.getMutiertam();
     }

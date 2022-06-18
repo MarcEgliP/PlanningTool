@@ -66,12 +66,6 @@ public class Ansprechsperson implements Serializable, Mutable, Uniquable{
     }
 
     @Override
-    public void setIdUnique(Long idUnique) {
-        embeddedUniquable.setIdUnique(idUnique);
-        
-    }
-
-    @Override
     public Date getMutiertam() {
         return embeddedMutable.getMutiertam();
     }

@@ -20,11 +20,5 @@ public class EmbeddedUniquable implements Serializable, Uniquable {
     @Override
     public Long getIdUnique() {
         return idUnique;
-    }
-
-    @Override
-    public void setIdUnique(Long idUnique) {
-        this.idUnique = idUnique;        
-    }
-    
+    }    
 }
