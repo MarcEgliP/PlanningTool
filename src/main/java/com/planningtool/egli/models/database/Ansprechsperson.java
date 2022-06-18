@@ -21,6 +21,7 @@ import com.planningtool.egli.models.embedded.EmbeddedUniquable;
 import com.planningtool.egli.models.embedded.Mutable;
 import com.planningtool.egli.models.embedded.Uniquable;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
