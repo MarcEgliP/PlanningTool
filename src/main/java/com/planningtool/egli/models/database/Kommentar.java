@@ -43,14 +43,11 @@ public class Kommentar implements Serializable, Mutable, Uniquable {
     @JsonManagedReference
     private Mitarbeiter mitarbeiter;
 
-    /* 
-    TODO: Create Model "Planung" and add Column
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_PLANUNG", nullable = false)
     @JsonManagedReference
     private Planung planung;
-    */
+
     @Column(name = "TITEL", nullable = false)
     private String titel;
 

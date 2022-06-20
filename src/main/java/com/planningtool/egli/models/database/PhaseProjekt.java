@@ -1,8 +1,10 @@
 package com.planningtool.egli.models.database;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.planningtool.egli.models.embedded.*;
+import com.planningtool.egli.models.embedded.EmbeddedMutable;
+import com.planningtool.egli.models.embedded.EmbeddedUniquable;
+import com.planningtool.egli.models.embedded.Mutable;
+import com.planningtool.egli.models.embedded.Uniquable;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,44 +16,30 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
-@Table(name = "PLANUNG")
-public class Planung implements Serializable, Mutable, Uniquable {
-    private static final long serialVersionUID = 113L;
+@Table(name = "PHASE_PROJEKT")
+public class PhaseProjekt implements Serializable, Mutable, Uniquable {
+    private static final long serialVersionUID = 107L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID_PLANUNG")
+    @Column(name = "ID_PHASE_PROJEKT")
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_MITARBEITER", nullable = false)
-    @JsonManagedReference
-    private Mitarbeiter mitarbeiter;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_TICKET", nullable = false)
-    @JsonManagedReference
-    private Ticket ticket;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_ANSPRECHSPERSON")
-    @JsonManagedReference
-    private Ansprechsperson ansprechsperson;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_PHASE")
-    @JsonManagedReference
+    @JoinColumn(name = "ID_PHASE", nullable = false)
+    @JsonBackReference
     private Phase phase;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_PROJEKT", nullable = false)
+    @JsonBackReference
+    private Projekt projekt;
 
     @Column(name = "VON", nullable = false)
     private LocalDateTime von;
 
     @Column(name = "BIS", nullable = false)
     private LocalDateTime bis;
-
-    //TODO Datentyp im ERD ändern
-    @Column(name = "SITZUNG", nullable = false)
-    private boolean sitzung;
 
     @Embedded
     private EmbeddedMutable embeddedMutable = new EmbeddedMutable();

@@ -22,7 +22,6 @@ public class EmbeddedMutable implements Serializable, Mutable {
     @Column(name = "MUTIERTVON", nullable = false)
     private String mutiertvon;
 
-
     @Override
     public Date getMutiertam() {
         return mutiertam;

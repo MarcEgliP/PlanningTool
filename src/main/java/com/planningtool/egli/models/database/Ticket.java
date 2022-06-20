@@ -1,8 +1,10 @@
 package com.planningtool.egli.models.database;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.planningtool.egli.models.embedded.*;
+import com.planningtool.egli.models.embedded.EmbeddedMutable;
+import com.planningtool.egli.models.embedded.EmbeddedUniquable;
+import com.planningtool.egli.models.embedded.Mutable;
+import com.planningtool.egli.models.embedded.Uniquable;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,44 +16,41 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
-@Table(name = "PLANUNG")
-public class Planung implements Serializable, Mutable, Uniquable {
-    private static final long serialVersionUID = 113L;
+@Table(name = "TICKET")
+public class Ticket implements Serializable, Mutable, Uniquable {
+    public static final long serialVersionUID = 108L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID_PLANUNG")
+    @Column(name = "ID_TICKET")
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_MITARBEITER", nullable = false)
-    @JsonManagedReference
-    private Mitarbeiter mitarbeiter;
+    @Column(name = "TITEL", nullable = false)
+    private String titel;
+
+    @Column(name = "BESCHRIEB", nullable = false)
+    private String beschrieb;
+
+    @Column(name = "TERMIN", nullable = false)
+    private LocalDateTime termin;
+
+    @Column(name = "PRIORITAET", nullable = false)
+    private Integer prioritaet;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_TICKET", nullable = false)
-    @JsonManagedReference
-    private Ticket ticket;
+    @JoinColumn(name = "ID_STATUS", nullable = false)
+    @JsonBackReference
+    private Status status;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_ANSPRECHSPERSON")
-    @JsonManagedReference
-    private Ansprechsperson ansprechsperson;
+    @JoinColumn(name = "ID_PROJEKT", nullable = false)
+    @JsonBackReference
+    private Projekt projekt;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_PHASE")
-    @JsonManagedReference
-    private Phase phase;
-
-    @Column(name = "VON", nullable = false)
-    private LocalDateTime von;
-
-    @Column(name = "BIS", nullable = false)
-    private LocalDateTime bis;
-
-    //TODO Datentyp im ERD ändern
-    @Column(name = "SITZUNG", nullable = false)
-    private boolean sitzung;
+    @JoinColumn(name = "ID_KUNDE", nullable = false)
+    @JsonBackReference
+    private Kunde kunde;
 
     @Embedded
     private EmbeddedMutable embeddedMutable = new EmbeddedMutable();
