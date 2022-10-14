@@ -1,9 +1,9 @@
 package com.planningtool.egli.repository;
 
-import com.planningtool.egli.models.database.Ansprechsperson;
+import com.planningtool.egli.models.database.ProjektMitarbeiter;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AnsprechspersonRepository extends JpaRepository<Ansprechsperson, Integer> {
+public interface ProjektMitarbeiterRepository extends JpaRepository<ProjektMitarbeiter, Integer> {
 }
